@@ -115,7 +115,16 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   background: var(--surface);
   box-shadow: var(--neo-flat);
 }
-.button-small { min-height: 36px; padding: 0 14px; font-size: 13px; border-radius: 12px; box-shadow: var(--neo-flat); background: var(--surface); }
+.button-small {
+  min-height: 36px; padding: 0 14px; font-size: 13px; border-radius: 12px;
+  box-shadow: var(--neo-flat); background: var(--surface);
+}
+.button-small.button-primary {
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 5px 5px 14px rgba(31, 111, 122, .28), -3px -3px 10px var(--shadow-light);
+}
+.button-small.button-primary:hover { background: var(--accent-soft); }
 
 /* Hero — editorial full-bleed photo */
 .hero {
