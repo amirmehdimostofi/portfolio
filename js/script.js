@@ -104,7 +104,7 @@
     projectsToggle.setAttribute('aria-expanded', String(projectsExpanded));
     projectsToggle.innerHTML = projectsExpanded
       ? '<span class="projects-toggle-label">Show fewer projects</span><span class="projects-toggle-icon" aria-hidden="true">↑</span>'
-      : `<span class="projects-toggle-label">Scroll down for ${hiddenCount} more projects</span><span class="projects-toggle-icon" aria-hidden="true">↓</span>`;
+      : `<span class="projects-toggle-label">Click for ${hiddenCount} more projects</span><span class="projects-toggle-icon" aria-hidden="true">↓</span>`;
   };
 
   filterButtons.forEach(button => button.addEventListener('click', () => {
