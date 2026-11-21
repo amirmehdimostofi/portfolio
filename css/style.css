@@ -139,13 +139,14 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
     linear-gradient(90deg, rgba(12, 22, 32, .78) 0%, rgba(12, 22, 32, .45) 46%, rgba(12, 22, 32, .18) 100%),
     linear-gradient(180deg, rgba(12, 22, 32, .55) 0%, rgba(12, 22, 32, .22) 48%, rgba(12, 22, 32, .4) 100%);
 }
-.hero-copy {
+.hero-copy,
+.hero-copy.reveal {
   position: relative; z-index: 2;
   max-width: 640px;
   margin-right: auto;
   text-align: left;
-  opacity: 1;
-  transform: none;
+  opacity: 1 !important;
+  transform: none !important;
   text-shadow: 0 2px 18px rgba(8, 16, 24, .35);
 }
 .hero .eyebrow {
