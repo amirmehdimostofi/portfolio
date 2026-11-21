@@ -119,12 +119,17 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   min-height: 36px; padding: 0 14px; font-size: 13px; border-radius: 12px;
   box-shadow: var(--neo-flat); background: var(--surface);
 }
+.nav-links .button-small.button-primary,
 .button-small.button-primary {
-  color: #fff;
-  background: var(--accent);
+  color: #fff !important;
+  background: var(--accent) !important;
+  border-color: transparent;
   box-shadow: 5px 5px 14px rgba(31, 111, 122, .28), -3px -3px 10px var(--shadow-light);
 }
-.button-small.button-primary:hover { background: var(--accent-soft); }
+.nav-links .button-small.button-primary:hover,
+.button-small.button-primary:hover {
+  background: var(--accent-soft) !important;
+}
 
 /* Hero — editorial full-bleed photo */
 .hero {
