@@ -73,25 +73,38 @@
 
   // Project category filters update cards and accessible pressed state together.
   const filterButtons = document.querySelectorAll('.filter-button');
-  const projectCards = document.querySelectorAll('.project-card');
+  const projectCards = [...document.querySelectorAll('#project-list .project-card')];
   const projectsToggle = document.querySelector('#projects-toggle');
   const collapsedProjectLimit = 2;
   let activeProjectFilter = 'all';
   let projectsExpanded = false;
 
-  const updateProjectVisibility = () => {
-    const matchingCards = [...projectCards].filter(card => {
-      const categories = card.dataset.categories.split(' ');
-      return activeProjectFilter === 'all' || categories.includes(activeProjectFilter);
-    });
-    const visibleCards = new Set(projectsExpanded ? matchingCards : matchingCards.slice(0, collapsedProjectLimit));
+  const matchingProjects = () => projectCards.filter(card => {
+    const categories = (card.dataset.categories || '').split(/\s+/).filter(Boolean);
+    return activeProjectFilter === 'all' || categories.includes(activeProjectFilter);
+  });
 
-    projectCards.forEach(card => { card.hidden = !visibleCards.has(card); });
-    projectsToggle.hidden = matchingCards.length <= collapsedProjectLimit;
+  const updateProjectVisibility = () => {
+    if (!projectsToggle) return;
+
+    const matchingCards = matchingProjects();
+    const visibleCards = new Set(
+      projectsExpanded ? matchingCards : matchingCards.slice(0, collapsedProjectLimit)
+    );
+    const hiddenCount = Math.max(matchingCards.length - collapsedProjectLimit, 0);
+
+    projectCards.forEach(card => {
+      const show = visibleCards.has(card);
+      card.hidden = !show;
+      card.setAttribute('aria-hidden', String(!show));
+    });
+
+    const showToggle = matchingCards.length > collapsedProjectLimit;
+    projectsToggle.hidden = !showToggle;
     projectsToggle.setAttribute('aria-expanded', String(projectsExpanded));
     projectsToggle.innerHTML = projectsExpanded
-      ? 'Show fewer projects <span aria-hidden="true">↑</span>'
-      : `Show all projects (${matchingCards.length}) <span aria-hidden="true">↓</span>`;
+      ? '<span class="projects-toggle-label">Show fewer projects</span><span class="projects-toggle-icon" aria-hidden="true">↑</span>'
+      : `<span class="projects-toggle-label">Scroll down for ${hiddenCount} more projects</span><span class="projects-toggle-icon" aria-hidden="true">↓</span>`;
   };
 
   filterButtons.forEach(button => button.addEventListener('click', () => {
@@ -105,17 +118,26 @@
     updateProjectVisibility();
   }));
 
-  projectsToggle.addEventListener('click', () => {
+  projectsToggle?.addEventListener('click', () => {
     const wasExpanded = projectsExpanded;
+    const nextProject = matchingProjects()[collapsedProjectLimit];
+
     projectsExpanded = !projectsExpanded;
     updateProjectVisibility();
-    if (wasExpanded) {
-      document.querySelector('#experience')?.scrollIntoView({
+
+    if (!wasExpanded && nextProject) {
+      nextProject.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start'
+      });
+    } else if (wasExpanded) {
+      document.querySelector('#projects')?.scrollIntoView({
         behavior: reducedMotion ? 'auto' : 'smooth',
         block: 'start'
       });
     }
   });
+
   updateProjectVisibility();
 
   // Mark the section currently occupying the reading area in the sticky navigation.
