@@ -121,8 +121,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 .hero {
   position: relative;
   min-height: min(92vh, 820px);
-  display: flex; align-items: flex-start;
-  padding: 96px 0 72px;
+  display: block;
+  padding: 0;
   overflow: hidden;
   color: #f4f7fa;
 }
@@ -136,14 +136,18 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 .hero-veil {
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(12, 22, 32, .78) 0%, rgba(12, 22, 32, .45) 46%, rgba(12, 22, 32, .18) 100%),
-    linear-gradient(180deg, rgba(12, 22, 32, .55) 0%, rgba(12, 22, 32, .22) 48%, rgba(12, 22, 32, .4) 100%);
+    linear-gradient(90deg, rgba(12, 22, 32, .82) 0%, rgba(12, 22, 32, .48) 42%, rgba(12, 22, 32, .16) 100%),
+    linear-gradient(180deg, rgba(12, 22, 32, .62) 0%, rgba(12, 22, 32, .2) 42%, rgba(12, 22, 32, .35) 100%);
 }
 .hero-copy,
 .hero-copy.reveal {
-  position: relative; z-index: 2;
-  max-width: 640px;
-  margin-right: auto;
+  position: absolute;
+  z-index: 2;
+  top: 28px;
+  left: max(20px, calc((100% - var(--container)) / 2));
+  right: auto;
+  max-width: min(640px, calc(100% - 40px));
+  margin: 0;
   text-align: left;
   opacity: 1 !important;
   transform: none !important;
@@ -485,7 +489,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   }
   .nav-links.open { display: flex; }
   .nav-links > a { padding: 12px 10px; }
-  .hero { min-height: 78vh; padding: 80px 0 52px; }
+  .hero { min-height: 78vh; padding: 0; }
+  .hero-copy,
+  .hero-copy.reveal { top: 20px; left: 20px; max-width: calc(100% - 40px); }
   .hero h1 { font-size: clamp(42px, 12vw, 64px); }
   .about-grid,
   .skills-grid,
