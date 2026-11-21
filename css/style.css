@@ -250,7 +250,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 .about-copy .lead {
   font-family: var(--font-display);
   font-size: 26px; line-height: 1.35; font-weight: 500;
-  color: var(--ink); margin: 0 0 14px;
+  color: var(--accent); margin: 0 0 14px;
 }
 .about-copy p { color: var(--ink-soft); margin: 0 0 12px; }
 .text-link {
